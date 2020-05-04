@@ -1,0 +1,19 @@
+<mat-card class="mb-1">
+  <mat-card-content>
+    <mat-form-field class="example-full-width w-25">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Ex. Jonas" [(ngModel)]="message.owner" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width ml-2" style="width: 70%;">
+      <mat-label>Leave a comment</mat-label>
+      <textarea
+        matInput
+        placeholder="A very good application ..."
+        [(ngModel)]="message.text"
+      ></textarea>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="post()">POST</button>
+  </mat-card-actions>
+</mat-card>

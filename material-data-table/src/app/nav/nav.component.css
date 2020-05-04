@@ -1,0 +1,6 @@
+mat-toolbar {
+  color: white !important;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}

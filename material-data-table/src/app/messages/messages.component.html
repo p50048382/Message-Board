@@ -1,0 +1,27 @@
+<div
+  *ngFor="let message of webService.messages | async"
+  class="container pl-0 pr-0"
+>
+  <mat-card class="mb-1">
+    <mat-card-title
+      [routerLink]="['/messages', message.owner]"
+      style="cursor: pointer;"
+      >{{ message.owner }}
+    </mat-card-title>
+    <mat-card-content> {{ message.text }}</mat-card-content>
+  </mat-card>
+  <!-- <button mat-button color="primary">Save</button> -->
+</div>
+<mat-paginator
+  [length]="100"
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  class="container p-0"
+>
+</mat-paginator>
+
+<!-- <div class="d-flex justify-content-center text-primary">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div> -->
