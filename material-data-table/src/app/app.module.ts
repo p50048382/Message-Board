@@ -10,14 +10,19 @@ import { MessagesComponent } from './messages/messages.component';
 import { WebService } from './web.service';
 import { NewMessageComponent } from './new-message/new-message.component';
 // import { http} from "@angular/common/http"
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthService } from './auth.service';
+import { LoginComponent } from './login/login.component';
 
 var routes = [
   { path: '', component: HomeComponent },
   { path: 'messages', component: MessagesComponent },
   { path: 'messages/:name', component: MessagesComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
@@ -27,6 +32,8 @@ var routes = [
     NewMessageComponent,
     NavComponent,
     HomeComponent,
+    RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,10 +41,11 @@ var routes = [
     MaterialModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
   ],
 
-  providers: [WebService],
+  providers: [WebService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

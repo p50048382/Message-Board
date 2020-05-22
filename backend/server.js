@@ -1,43 +1,19 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
+var jwt = require('jsonwebtoken');
+
 var messages = [
   { text: "Hi", owner: "Turant" },
+
   { text: "Jonas is crying", owner: "Murthy" },
 ];
-
-var questions = [
-  {
-    value: "First textbox",
-    key: "dropdown1",
-    label: "Kindly provide the values",
-    required: true,
-    controlType: "dropdown",
-    type: "",
-    options: [
-      { key: "solid", value: "Solid" },
-      { key: "great", value: "Great" },
-      { key: "good", value: "Good" },
-      { key: "unproven", value: "Unproven" },
-    ],
-    order: 3,
-  },
-  {
-    value: "First textbox",
-    key: "dropdown1",
-    label: "Kindly provide the values",
-    required: true,
-    controlType: "dropdown",
-    type: "",
-    options: [
-      { key: "solid", value: "Solid" },
-      { key: "great", value: "Great" },
-      { key: "good", value: "Good" },
-      { key: "unproven", value: "Unproven" },
-    ],
-    order: 3,
-  },
-];
+var users = [{
+	firstName:"a",
+	id:0,
+	email: 'a',
+	password:'a'
+}];
 
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
@@ -48,14 +24,15 @@ app.use(function (req, res, next) {
   );
   next();
 });
+
 var api = express.Router();
+var auth= express.Router();
+
 api.get("/messages", (req, res) => {
   res.json(messages);
 });
 
-api.get("/questions", (req, res) => {
-  res.json(questions);
-});
+
 
 api.get("/messages/:user", (req, res) => {
   var user = req.params.user;
@@ -67,5 +44,39 @@ api.post("/messages", (req, res) => {
   messages.push(req.body);
   res.json(req.body);
 });
+
+auth.post("/login", (req,res)=>{
+	var user =users.find(user=>{
+	console.log(user);
+	console.log(req.body);
+	console.log(req.url);
+	return user.email==req.body.email;
+	});
+	if (!user) sendAuthError(res);
+	if (user.password == req.body.password) sendToken(user,res);
+	else sendAuthError(res);
+});
+
+
+
+function sendAuthError(res){
+	return res.json({success: false, message: "Email or Password Incorrect"});
+}
+
+auth.post("/register",(req,res)=>{
+	
+	var index =users.push(req.body)-1;
+	var user = users[index];
+	user.id=index;
+	
+	sendToken(user,res);
+	
+});
+function sendToken(user,res){
+	var token = jwt.sign(user.id,'123');
+	res.json({firstName:user.firstName, token});
+}
+
 app.use("/api", api);
+app.use("/auth", auth);
 app.listen(63145);

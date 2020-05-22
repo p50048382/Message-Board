@@ -1,0 +1,37 @@
+<mat-card class="text-center w-50 m-5 container pl-2" style="min-width: 300px;">
+  <h4 class="mb-2">login</h4>
+  <hr />
+
+  <mat-card-content>
+    <mat-form-field style="width: 61%;">
+      <mat-label>Email </mat-label>
+      <input
+        type="email"
+        matInput
+        placeholder="Email"
+        [(ngModel)]="loginData.email"
+      />
+
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+    <mat-form-field style="width: 61%;">
+      <mat-label>Confirm Password </mat-label>
+      <input
+        type="password"
+        matInput
+        placeholder="password"
+        [(ngModel)]="loginData.password"
+      />
+
+      <mat-icon matSuffix>lock</mat-icon>
+    </mat-form-field>
+  </mat-card-content>
+  <button
+    (click)="login()"
+    style="width: 61%;"
+    color="primary"
+    mat-raised-button
+  >
+    login
+  </button>
+</mat-card>
